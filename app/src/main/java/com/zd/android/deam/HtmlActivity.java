@@ -59,6 +59,8 @@ public class HtmlActivity extends AppCompatActivity implements View.OnClickListe
         myWeb.addJavascriptInterface(new TestGet(), "myTest");
         myWeb.setWebViewClient(new MyClient());//限制在webview中打开网页，不用默认浏览器
         myWeb.loadUrl("http://geek.csdn.net/forum/65");
+
+//        myWeb.addJavascriptInterface(new TestGet(),"my_Second");
     }
 
     @Override

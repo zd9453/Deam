@@ -48,7 +48,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestViewHolder
         public TestViewHolder(View itemView) {
             super(itemView);
             tv_test = (TextView) itemView.findViewById(R.id.tv_text);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (Math.random()*1000));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (Math.random()*100));
             tv_test.setLayoutParams(params);
         }
     }

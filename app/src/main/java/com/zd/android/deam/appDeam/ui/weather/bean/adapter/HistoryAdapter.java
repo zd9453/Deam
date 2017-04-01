@@ -31,15 +31,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HisHolde
     @Override
     public void onBindViewHolder(HisHolder holder, int position) {
 
-        String date = this.date.get(position).getDate();
-        int length = date.length();
-        String day = date.substring(length - 2, length);
-        String M = date.substring(length - 4, length - 2);
-        String y = date.substring(0, length - 4);
+//        String date = this.date.get(position).getDate();
+//        int length = date.length();
+//        String day = date.substring(length - 2, length);
+//        String M = date.substring(length - 4, length - 2);
+//        String y = date.substring(0, length - 4);
+//
+//        String hTime = y + "-" + M + "-" + day;
 
-        String hTime = y + "-" + M + "-" + day;
+        String title = date.get(position).getTitle();
 
-        holder.his_time.setText(hTime);
+        holder.his_time.setText(title);
 
         holder.his_content.setText(this.date.get(position).getEvent());
     }

@@ -219,8 +219,8 @@ public class ActivityTestRv extends AppCompatActivity {
     private void testRx() {
         Apiserver.Factory.getApiserver()
                 .gethis(ApiBase.APP_KEY, "0102")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())  //异步订阅
+                .observeOn(AndroidSchedulers.mainThread())  //UI线程更新
                 .subscribe(new Observer<HistoryInfo>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -229,7 +229,7 @@ public class ActivityTestRv extends AppCompatActivity {
 
                     @Override
                     public void onNext(HistoryInfo historyInfo) {
-                        Log.d(TAG, "onNext: =================" + historyInfo.getMsg());
+                        Log.d(TAG, "onNext: =================" + historyInfo.toString());
                     }
 
                     @Override

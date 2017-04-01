@@ -1,11 +1,14 @@
 package com.zd.android.deam.appDeam.ui.api;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.zd.android.deam.appDeam.ui.weather.bean.HistoryInfo;
 import com.zd.android.deam.appDeam.ui.weather.bean.WeatherInfo;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -21,6 +24,7 @@ public interface Apiserver {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiBase.WEATHER_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
             return retrofit.create(Apiserver.class);
         }
@@ -44,4 +48,8 @@ public interface Apiserver {
      */
     @GET("appstore/history/query?")
     Call<HistoryInfo> getHistory(@Query("key") String key, @Query("day") String day);
+
+
+    @GET("appstore/history/query?")
+    Observable<HistoryInfo> gethis(@Query("key") String key, @Query("day") String day);
 }

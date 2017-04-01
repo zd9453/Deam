@@ -9,6 +9,9 @@ import android.util.Log;
 
 import com.zd.android.deam.ActivityTest.adapter.TestAdapter;
 import com.zd.android.deam.R;
+import com.zd.android.deam.appDeam.ui.api.ApiBase;
+import com.zd.android.deam.appDeam.ui.api.Apiserver;
+import com.zd.android.deam.appDeam.ui.weather.bean.HistoryInfo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +21,13 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class ActivityTestRv extends AppCompatActivity {
 
@@ -71,7 +79,8 @@ public class ActivityTestRv extends AppCompatActivity {
         });
         helper.attachToRecyclerView(recycleView);
 
-        testRxjava();
+//        testRxjava();
+        testRx();
     }
 
     private void init() {
@@ -164,7 +173,8 @@ public class ActivityTestRv extends AppCompatActivity {
             }
         }).subscribe(new Observer<Object>() {
             private Disposable mdisposable;
-            private int i=0;
+            private int i = 0;
+
             @Override
             public void onSubscribe(Disposable d) {
                 Log.d(TAG, "onSubscribe: =====================" + d);
@@ -175,9 +185,9 @@ public class ActivityTestRv extends AppCompatActivity {
             public void onNext(Object o) {
                 Log.d(TAG, "onNext: ====================" + o);
                 i++;
-                if (i==2) {
+                if (i == 2) {
                     mdisposable.dispose();
-                    Log.d(TAG, "onNext: ====mdisposable "+mdisposable.isDisposed());
+                    Log.d(TAG, "onNext: ====mdisposable " + mdisposable.isDisposed());
                 }
             }
 
@@ -203,5 +213,36 @@ public class ActivityTestRv extends AppCompatActivity {
 //        04-01 16:04:07.952 30244-30244/com.zd.android.deam D/MY_INFO: subscribe  emit ========= complete
 //        04-01 16:04:07.952 30244-30244/com.zd.android.deam D/MY_INFO: subscribe  emit ============ 4
 //        04-01 16:04:07.952 30244-30244/com.zd.android.deam D/MY_INFO: subscribe: ======observable--subscribe  success
+
     }
+
+    private void testRx() {
+        Apiserver.Factory.getApiserver()
+                .gethis(ApiBase.APP_KEY, "0102")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<HistoryInfo>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d(TAG, "onSubscribe: =============");
+                    }
+
+                    @Override
+                    public void onNext(HistoryInfo historyInfo) {
+                        Log.d(TAG, "onNext: =================" + historyInfo.getMsg());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: ================");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: =================");
+                    }
+                });
+
+    }
+
 }

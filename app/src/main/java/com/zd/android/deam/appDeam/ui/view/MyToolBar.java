@@ -14,9 +14,9 @@ import com.zd.android.deam.R;
  **/
 
 
-public class MyToolBar extends RelativeLayout{
+public class MyToolBar extends RelativeLayout {
 
-    private ImageButton left_ib,right_ib;
+    private ImageButton left_ib, right_ib;
     private TextView title;
 
 
@@ -35,7 +35,7 @@ public class MyToolBar extends RelativeLayout{
         addview(context);
     }
 
-    private void addview(Context context){
+    private void addview(Context context) {
 
         View.inflate(context, R.layout.myactionbar, MyToolBar.this);
 
@@ -46,24 +46,25 @@ public class MyToolBar extends RelativeLayout{
     }
 
     //设置标题
-    public void setTitleText(String str){
+    public void setTitleText(String str) {
         if (null != str && str.length() != 0) {
             title.setText(str);
         }
     }
 
     //绑定监听
-    public void setIBClick(OnClickListener click){
+    public void setIBClick(OnClickListener click) {
         left_ib.setOnClickListener(click);
         right_ib.setOnClickListener(click);
     }
 
     /**
      * imagebutton设置背景图片
+     *
      * @param resouseId 资源id
-     * @param isLeft true--设置左边，false--设置右边
+     * @param isLeft    true--设置左边，false--设置右边
      */
-    public void setSrc(int resouseId, boolean isLeft){
+    public void setSrc(int resouseId, boolean isLeft) {
         if (isLeft) {
             left_ib.setImageResource(resouseId);
         } else {
@@ -73,10 +74,11 @@ public class MyToolBar extends RelativeLayout{
 
     /**
      * 设置imagebutton是否可见
+     *
      * @param visibility 是否可见
-     * @param num button的位置，0-左，1-右
+     * @param num        button的位置，0-左，1-右
      */
-    public void setImageButtonVisibility(int visibility,int num){
+    public void setImageButtonVisibility(int visibility, int num) {
         switch (num) {
             case 0:
                 left_ib.setVisibility(visibility);
@@ -88,5 +90,4 @@ public class MyToolBar extends RelativeLayout{
                 break;
         }
     }
-
 }

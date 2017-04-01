@@ -17,27 +17,30 @@ import com.zd.android.deam.appDeam.ui.Glide;
 public class MainActivity extends AppCompatActivity {
 
     private String TAG = "MY_INFO";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void go1(View view){
+    public void go1(View view) {
         Intent intent = new Intent(this, Glide.class);
         startActivity(intent);
     }
-    public void go2(View view){
+
+    public void go2(View view) {
         Intent intent = new Intent(this, ActivityTestRv.class);
         startActivity(intent);
+    }
 
-    }public void go3(View view){
+    public void go3(View view) {
         new ShareAction(MainActivity.this).withText("hello")
-                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
-                        Log.d(TAG, "onStart: ============"+share_media);
+                        Log.d(TAG, "onStart: ============" + share_media);
                     }
 
                     @Override
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                        Log.d(TAG, "onError: =================="+throwable);
+                        Log.d(TAG, "onError: ==================" + throwable);
                     }
 
                     @Override
@@ -57,12 +60,16 @@ public class MainActivity extends AppCompatActivity {
                 }).open();
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: ==============");
+    }
+
+    public void go4(View view) {
+        Intent intent = new Intent(this, HtmlActivity.class);
+        startActivity(intent);
     }
 
 }

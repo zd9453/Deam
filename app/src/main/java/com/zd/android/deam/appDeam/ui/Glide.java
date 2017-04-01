@@ -16,7 +16,7 @@ public class Glide extends BaseActivity {
     }
 
 
-    private void waitting(){
+    private void waitting() {
         new Thread(
                 new Runnable() {
                     @Override
@@ -24,8 +24,8 @@ public class Glide extends BaseActivity {
                         try {
                             Thread.sleep(2000);
                             finish();
-                            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-                            Intent i = new Intent(Glide.this,Main2Activity.class);
+                            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                            Intent i = new Intent(Glide.this, Main2Activity.class);
                             startActivity(i);
                         } catch (InterruptedException e) {
                             e.printStackTrace();

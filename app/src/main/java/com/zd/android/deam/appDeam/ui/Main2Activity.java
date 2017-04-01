@@ -24,7 +24,7 @@ import com.zd.android.deam.appDeam.ui.view.MyToolBar;
 import com.zd.android.deam.appDeam.ui.weather.bean.fragment.HistoryFragment;
 import com.zd.android.deam.appDeam.ui.weather.bean.fragment.WeatherFragment;
 
-public class Main2Activity extends AppCompatActivity implements View.OnClickListener{
+public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
 
 
     private MyToolBar myBar;
@@ -48,7 +48,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         init();
     }
 
-    private void findView(){
+    private void findView() {
         null_img = (RelativeLayout) findViewById(R.id.null_img);
         weatherText = (TextView) findViewById(R.id.te_weather);
         myBar = (MyToolBar) findViewById(R.id.Mybar);
@@ -60,13 +60,13 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void init(){
+    private void init() {
         weatherLayout.setOnClickListener(this);
         historyLayout.setOnClickListener(this);
         clearLayout.setOnClickListener(this);
-        myBar.setSrc(R.mipmap.icon_lines2x,true);
-        myBar.setSrc(R.mipmap.icon_return_right2x,false);
-        myBar.setImageButtonVisibility(View.GONE,1);
+        myBar.setSrc(R.mipmap.icon_lines2x, true);
+        myBar.setSrc(R.mipmap.icon_return_right2x, false);
+        myBar.setImageButtonVisibility(View.GONE, 1);
         myBar.setIBClick(this);
     }
 
@@ -79,7 +79,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 check();
                 break;
             case R.id.right_ib:
-                Toast.makeText(Main2Activity.this,"右3拳",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Main2Activity.this, "右3拳", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.function_weather: //天气查询
                 NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -95,17 +95,17 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 //                        Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
                         .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(), 0))
                         .setSmallIcon(R.mipmap.ic_launcher);//设置通知小ICON
-                manager.notify(110,builder.build());
+                manager.notify(110, builder.build());
 
                 myBar.setTitleText(weatherText.getText().length() == 0 ? "错误" : weatherText.getText().toString());
-                myBar.setImageButtonVisibility(View.VISIBLE,1);
+                myBar.setImageButtonVisibility(View.VISIBLE, 1);
                 null_img.setVisibility(View.GONE);
                 showW();
                 check();
                 break;
             case R.id.function_history:
                 myBar.setTitleText("历史上的今天");
-                myBar.setImageButtonVisibility(View.VISIBLE,1);
+                myBar.setImageButtonVisibility(View.VISIBLE, 1);
                 null_img.setVisibility(View.GONE);
                 showH();
                 check();
@@ -113,7 +113,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             case R.id.clear:
                 null_img.setVisibility(View.VISIBLE);
                 myBar.setTitleText("welcome");
-                myBar.setImageButtonVisibility(View.GONE,1);
+                myBar.setImageButtonVisibility(View.GONE, 1);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 hideFragment(transaction);
                 transaction.commit();
@@ -123,35 +123,35 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void showW(){
+    private void showW() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (weatherFragment == null) {
             weatherFragment = new WeatherFragment();
-            fragmentTransaction.add(R.id.replace_content,weatherFragment);
+            fragmentTransaction.add(R.id.replace_content, weatherFragment);
         }
         hideFragment(fragmentTransaction);
         fragmentTransaction.show(weatherFragment);
         fragmentTransaction.commit();
     }
 
-    private void showH(){
+    private void showH() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (historyFragment == null) {
             historyFragment = new HistoryFragment();
-            fragmentTransaction.add(R.id.replace_content,historyFragment);
+            fragmentTransaction.add(R.id.replace_content, historyFragment);
         }
         hideFragment(fragmentTransaction);
         fragmentTransaction.show(historyFragment);
         fragmentTransaction.commit();
     }
 
-    private void hideFragment(FragmentTransaction transaction){
-        if (weatherFragment != null ) {
+    private void hideFragment(FragmentTransaction transaction) {
+        if (weatherFragment != null) {
             transaction.hide(weatherFragment);
         }
-        if (historyFragment != null ) {
+        if (historyFragment != null) {
             transaction.hide(historyFragment);
         }
     }
@@ -160,7 +160,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     /**
      * 检查左边是否滑出
      */
-    private void check(){
+    private void check() {
         if (outLayout.isOpen()) {
             outLayout.closePane();
         } else {
@@ -173,6 +173,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
      * 返回键
      */
     private long exitTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 

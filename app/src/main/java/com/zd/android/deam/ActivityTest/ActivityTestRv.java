@@ -47,6 +47,11 @@ public class ActivityTestRv extends AppCompatActivity {
             }
 
             @Override
+            public boolean isLongPressDragEnabled() {
+                return false;
+            }
+
+            @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 // 拖拽
                 // 更新数据、适配器

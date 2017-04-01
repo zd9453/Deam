@@ -15,7 +15,7 @@ import java.util.List;
  * Created by suzy on 2017/3/23.
  **/
 
-public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherHolder>{
+public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherHolder> {
 
 
     private List<WeatherInfo.ResultBean.FutureBean> list;
@@ -26,17 +26,17 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherH
 
     @Override
     public WeatherHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_weather_item, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_weather_item, parent, false);
         return new WeatherHolder(view);
     }
 
     @Override
     public void onBindViewHolder(WeatherHolder holder, int position) {
-        holder.day.setText(list.get(position).getDate()+"  "+list.get(position).getWeek());
-        holder.daytime.setText("白天："+list.get(position).getDayTime());
-        holder.night.setText("晚上："+list.get(position).getNight());
-        holder.wendu.setText("温度："+list.get(position).getTemperature());
-        holder.feng.setText("风速："+list.get(position).getWind());
+        holder.day.setText(list.get(position).getDate() + "  " + list.get(position).getWeek());
+        holder.daytime.setText("白天：" + list.get(position).getDayTime());
+        holder.night.setText("晚上：" + list.get(position).getNight());
+        holder.wendu.setText("温度：" + list.get(position).getTemperature());
+        holder.feng.setText("风速：" + list.get(position).getWind());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherH
 
     public class WeatherHolder extends RecyclerView.ViewHolder {
 
-        private TextView day,daytime,night,wendu,feng;
+        private TextView day, daytime, night, wendu, feng;
 
         public WeatherHolder(View itemView) {
             super(itemView);

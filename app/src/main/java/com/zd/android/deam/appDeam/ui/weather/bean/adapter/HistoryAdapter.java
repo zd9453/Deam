@@ -15,7 +15,7 @@ import java.util.List;
  * Created by suzy on 2017/3/28.
  **/
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HisHolder>{
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HisHolder> {
 
     private List<HistoryInfo.ResultBean> date;
 
@@ -25,7 +25,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HisHolde
 
     @Override
     public HisHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new HisHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_history_item,parent,false));
+        return new HisHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_history_item, parent, false));
     }
 
     @Override
@@ -34,10 +34,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HisHolde
         String date = this.date.get(position).getDate();
         int length = date.length();
         String day = date.substring(length - 2, length);
-        String M = date.substring(length-4,length-2);
-        String y = date.substring(0,length-4);
+        String M = date.substring(length - 4, length - 2);
+        String y = date.substring(0, length - 4);
 
-        String hTime = y+" - "+M+" - "+day;
+        String hTime = y + "-" + M + "-" + day;
 
         holder.his_time.setText(hTime);
 
@@ -50,7 +50,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HisHolde
     }
 
     static class HisHolder extends RecyclerView.ViewHolder {
-        private TextView his_time,his_content;
+        private TextView his_time, his_content;
+
         public HisHolder(View itemView) {
             super(itemView);
             his_time = (TextView) itemView.findViewById(R.id.his_time);

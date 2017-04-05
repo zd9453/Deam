@@ -11,22 +11,18 @@ import com.zd.android.deam.ActivityTest.adapter.TestAdapter;
 import com.zd.android.deam.R;
 import com.zd.android.deam.appDeam.ui.api.ApiBase;
 import com.zd.android.deam.appDeam.ui.api.Apiserver;
-import com.zd.android.deam.appDeam.ui.weather.bean.HistoryInfo;
+import com.zd.android.deam.mvp.bean.HistoryInfo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ActivityTestRv extends AppCompatActivity {
@@ -48,37 +44,54 @@ public class ActivityTestRv extends AppCompatActivity {
         recycleView.setAdapter(mAdapter);
         init();
 
-        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+        MyItemCallback myItemCallback = new MyItemCallback(new ItemListener() {
             @Override
-            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                //拖拽
-                int tMove = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
-                //滑动删除  0 --不能删除
-                int tdeleta = 0;
-                return makeMovementFlags(tMove, tdeleta);
+            public void onSwiped(int adapterPosition) {
+
             }
 
             @Override
-            public boolean isLongPressDragEnabled() {
+            public boolean onMove(int srcPosition, int targetPosition) {
+
+                mAdapter.notifyItemMoved(srcPosition,targetPosition);
                 return false;
-            }
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                // 拖拽
-                // 更新数据、适配器
-                Collections.swap(data, viewHolder.getAdapterPosition(), target.getAdapterPosition());
-                mAdapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                //侧滑删除，一般删除数据源，通知适配器更新
             }
         });
-        helper.attachToRecyclerView(recycleView);
+        MyItemTouchHelper myItemTouchHelper = new MyItemTouchHelper(myItemCallback);
+        myItemTouchHelper.attachToRecyclerView(recycleView);
 
+//        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+//            @Override
+//            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+//                //拖拽
+//                int tMove = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+//                //滑动删除  0 --不能删除
+//                int tdeleta = 0;
+//                return makeMovementFlags(tMove, tdeleta);
+//            }
+//
+//            @Override
+//            public boolean isLongPressDragEnabled() {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                // 拖拽
+//                // 更新数据、适配器
+//                Collections.swap(data, viewHolder.getAdapterPosition(), target.getAdapterPosition());
+//                mAdapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//                //侧滑删除，一般删除数据源，通知适配器更新
+//            }
+//        });
+//        helper.attachToRecyclerView(recycleView);
+
+//        testRxJava();
 //        testRxjava();
         testRx();
     }
@@ -91,6 +104,23 @@ public class ActivityTestRv extends AppCompatActivity {
     }
 
 
+    private class MyItemTouchHelper extends ItemTouchHelper {
+        /**
+         * Creates an ItemTouchHelper that will work with the given Callback.
+         * <p>
+         * You can attach ItemTouchHelper to a RecyclerView via
+         * {@link #attachToRecyclerView(RecyclerView)}. Upon attaching, it will add an item decoration,
+         * an onItemTouchListener and a Child attach / detach listener to the RecyclerView.
+         *
+         * @param callback The Callback which controls the behavior of this touch helper.
+         */
+        public MyItemTouchHelper(Callback callback) {
+            super(callback);
+        }
+    }
+
+
+
     private void testRxJava() {
         //创建一个被观察者
         Observable<Object> observable = Observable.create(new ObservableOnSubscribe<Object>() {
@@ -99,7 +129,7 @@ public class ActivityTestRv extends AppCompatActivity {
                 Log.d(TAG, "subscribe: ======observable--subscribe  start");
                 e.onNext(1);
                 e.onNext(2);
-                e.onComplete();
+//                e.onComplete();
 //                e.onError(new IndexOutOfBoundsException("test"));
                 Log.d("MY_INFO", "subscribe: ======observable--subscribe  success");
             }
@@ -243,6 +273,66 @@ public class ActivityTestRv extends AppCompatActivity {
                     }
                 });
 
+
+    }
+
+
+    public interface ItemListener{
+
+        /**
+         * 当某个Item被滑动删除的时候
+         *
+         * @param adapterPosition item的position
+         */
+        void onSwiped(int adapterPosition);
+
+        /**
+         * 当两个Item位置互换的时候被回调
+         *
+         * @param srcPosition    拖拽的item的position
+         * @param targetPosition 目的地的Item的position
+         * @return 开发者处理了操作应该返回true，开发者没有处理就返回false
+         */
+        boolean onMove(int srcPosition, int targetPosition);
+
+    }
+
+    public class MyItemCallback extends ItemTouchHelper.Callback {
+        private ItemListener itemListener;
+
+        public MyItemCallback(ItemListener itemListener) {
+            this.itemListener = itemListener;
+        }
+
+        public void setItemListener(ItemListener itemListener) {
+            this.itemListener = itemListener;
+        }
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            int toMove = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
+            int toDelete = 0;
+            return makeMovementFlags(toMove, toDelete);
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            Log.d(TAG, "onMove: ==========" + recyclerView.getChildItemId(viewHolder.itemView));
+            if (itemListener!=null) {
+                itemListener.onMove(viewHolder.getAdapterPosition(),target.getAdapterPosition());
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            Log.d(TAG, "onSwiped: ===========" + direction);
+
+            if (itemListener!=null) {
+                itemListener.onSwiped(viewHolder.getAdapterPosition());
+            }
+        }
     }
 
 }

@@ -36,5 +36,11 @@
         android:onClick="go4"
         android:text="Hello World!" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="go5"
+        android:text="Hello World!" />
+
 
 </LinearLayout>

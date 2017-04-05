@@ -8,7 +8,6 @@ import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -18,8 +17,8 @@ import retrofit2.http.Query;
 
 public interface Apiserver {
 
-    class Factory{
-        public static Apiserver getApiserver(){
+    class Factory {
+        public static Apiserver getApiserver() {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(ApiBase.WEATHER_URL)
@@ -32,24 +31,26 @@ public interface Apiserver {
 
     /**
      * 获取天气数据
-     * @param key appkey
-     * @param city 查询城市
+     *
+     * @param key      appkey
+     * @param city     查询城市
      * @param province 城市的省份
      * @return 获取的天气数据
      */
     @GET("v1/weather/query?")
-    Call<WeatherInfo> getWeather(@Query("key") String key,@Query("city") String city,@Query("province") String province);
+    Call<WeatherInfo> getWeather(@Query("key") String key, @Query("city") String city, @Query("province") String province);
 
     /**
      * 历史上的今天事件
+     *
      * @param key appkey
-     * @param day   日期
-     * @return  历史事件
+     * @param day 日期
+     * @return 历史事件
      */
     @GET("appstore/history/query?")
     Call<HistoryInfo> getHistory(@Query("key") String key, @Query("day") String day);
 
 
     @GET("appstore/history/query?")
-    Observable<HistoryInfo> gethis(@Query("key") String key, @Query("day") String day);
+    Observable<com.zd.android.deam.mvp.bean.HistoryInfo> gethis(@Query("key") String key, @Query("day") String day);
 }

@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".appDeam.ui.Glide"></activity>
+        <activity android:name=".appDeam.ui.Glide" />
         <activity android:name=".appDeam.ui.Main2Activity" />
         <activity android:name=".ActivityTest.ActivityTestRv" />
 
@@ -69,9 +69,10 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="561cae6ae0f55abd990035bf"></meta-data>
+            android:value="561cae6ae0f55abd990035bf" />
 
-        <activity android:name=".HtmlActivity"></activity>
+        <activity android:name=".HtmlActivity" />
+        <activity android:name=".mvp.view.MvpActivity"></activity>
     </application>
 
 </manifest>

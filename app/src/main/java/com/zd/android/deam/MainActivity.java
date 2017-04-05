@@ -13,6 +13,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.zd.android.deam.ActivityTest.ActivityTestRv;
 import com.zd.android.deam.appDeam.ui.Glide;
+import com.zd.android.deam.mvp.view.MvpActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void go4(View view) {
         Intent intent = new Intent(this, HtmlActivity.class);
+        startActivity(intent);
+    }
+
+    public void go5(View view) {
+        Intent intent = new Intent(this, MvpActivity.class);
         startActivity(intent);
     }
 

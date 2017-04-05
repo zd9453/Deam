@@ -1,7 +1,9 @@
 package com.zd.android.deam.appDeam.ui.weather.bean.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -65,8 +67,6 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.bt_chose:
                 choseTime();
-
-
                 break;
             default:
                 break;
@@ -90,6 +90,8 @@ public class HistoryFragment extends Fragment implements View.OnClickListener {
                 long time = date.getTime();
                 String s = format.format(time);
                 textChose.setText("查询时间："+s);
+
+                textChose.setTextColor(Color.rgb(10,20,30));
 
                 if (null != s && s.length() != 0){
                     String[] split = s.split("-");
